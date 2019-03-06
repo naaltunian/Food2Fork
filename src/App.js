@@ -9,7 +9,8 @@ class App extends Component {
 
   state = {
     recipes: [],
-    url: `https://www.food2fork.com/api/search?key=${apiKey}`
+    url: `https://www.food2fork.com/api/search?key=${apiKey}`,
+    details_id: 35382 
   }
 
   getRecipes = async () => {
@@ -23,15 +24,16 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getRecipes();
+    // this.getRecipes();
+    this.setState({ recipes: recipes })
   }
 
   render() {
-    console.log(this.state.recipes);
+    // console.log(this.state.recipes);
     return (
       <div>
-        <RecipeList />
-        <RecipeDetails />
+        {/* <RecipeList recipes={this.state.recipes} /> */}
+        <RecipeDetails id={this.state.details_id} />
       </div>
     );
   }
