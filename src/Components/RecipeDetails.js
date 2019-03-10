@@ -4,9 +4,41 @@ import apiKey from '../config';
 
 export default class RecipeDetails extends Component {
     
+    // state = {
+    //     recipe: {},
+    //     url: `https://www.food2fork.com/api/search?key=${apiKey}&Id=${this.props.id}`
+    // }
+
+    // getRecipe = async () => {
+    //     try {
+    //       const data = await fetch(this.state.url);
+    //       const jsonData = await data.json();
+    //       this.setState({ recipe: jsonData.recipe });
+    //     } catch(error) {
+    //       console.log(error);
+    //     }
+    //   }
+    
+    //   componentDidMount() {
+    //     this.getRecipe();
+    //     // this.setState({ recipes: recipes })
+    //   }
+
     state = {
-        recipe: recipe,
-        url: `https://www.food2fork.com/api/search?key=${apiKey}&Id=${this.props.id}`
+        recipe: {}
+    }
+
+    async componentDidMount() {
+        const id = this.props.id;
+        const url = `https://www.food2fork.com/api/get?key=${apiKey}&rId=${id}`;
+        try {
+            const data = await fetch(url);
+            const jsonData = await data.json();
+            this.setState({ recipe: jsonData.recipe });
+            console.log(this.state.recipe)
+        } catch(error) {
+            console.log(error);
+        }
     }
 
     render() {
@@ -25,7 +57,7 @@ export default class RecipeDetails extends Component {
                             <a href={publisher_url} target="blank" className="btn btn-primary mt-2" >Publisher Page</a>
                             <a href={source_url} target="blank" className="btn btn-success mt-2 mx-3" >Recipe Page</a>
                             <ul className="list-group mt-4">
-                                {ingredients.map((item, i) => {
+                                {ingredients && ingredients.map((item, i) => {
                                     return (
                                     <li className="list-group-item fancy-text" key={i}>{item}</li>
                                     )
