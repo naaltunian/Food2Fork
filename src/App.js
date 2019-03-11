@@ -14,14 +14,19 @@ class App extends Component {
     details_id: 35382,
     pageIndex: 1,
     search: "",
-    query: "&q="
+    query: "&q=",
+    error: ""
   }
 
   getRecipes = async () => {
     try {
       const data = await fetch(this.state.url);
       const jsonData = await data.json();
-      this.setState({ recipes: jsonData.recipes });
+      if(jsonData.recipes.length === 0) {
+        this.setState({ error: "No recipes found" })
+      } else {
+        this.setState({ recipes: jsonData.recipes });
+      }
     } catch(error) {
       console.log(error);
     }
@@ -37,7 +42,9 @@ class App extends Component {
     switch(index) {
       default:
       case 1:
-        return( <RecipeList value={this.state.search}
+        return( <RecipeList
+            error={this.state.error}
+            value={this.state.search}
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             recipes={this.state.recipes}
