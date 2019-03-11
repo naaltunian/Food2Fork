@@ -10,9 +10,11 @@ class App extends Component {
   state = {
     recipes: [],
     url: `https://www.food2fork.com/api/search?key=${apiKey}`,
+    baseUrl: `https://www.food2fork.com/api/search?key=${apiKey}`,
     details_id: 35382,
     pageIndex: 1,
-    search: ""
+    search: "",
+    query: "&q="
   }
 
   getRecipes = async () => {
@@ -25,16 +27,22 @@ class App extends Component {
     }
   }
 
+  // reverse comments to save api calls. Only 50/day
   componentDidMount() {
-    // this.getRecipes();
-    this.setState({ recipes: recipes })
+    this.getRecipes();
+    // this.setState({ recipes: recipes })
   }
 
   displayPage = index => {
     switch(index) {
       default:
       case 1:
-        return( <RecipeList recipes={this.state.recipes} handleDetails={this.handleDetails} /> );
+        return( <RecipeList value={this.state.search}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+            recipes={this.state.recipes}
+            handleDetails={this.handleDetails}
+          /> );
       case 0:
         return (<RecipeDetails id={this.state.details_id} handleIndex={this.handleIndex} />);
     }
@@ -52,11 +60,17 @@ class App extends Component {
   }
 
   handleChange = e => {
-    console.log(e);
+    this.setState({ search: e.target.value })
+  }
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    const { baseUrl, query, search } = this.state;
+    await this.setState({ url: `${baseUrl}${query}${search}`, search: "" });
+    await this.getRecipes();
   }
 
   render() {
-    // console.log(this.state.recipes);
     return (
       <div>
         { this.displayPage(this.state.pageIndex) }

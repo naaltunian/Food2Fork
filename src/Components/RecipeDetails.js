@@ -8,18 +8,18 @@ export default class RecipeDetails extends Component {
         recipe: {}
     }
 
-    // async componentDidMount() {
-    //     const id = this.props.id;
-    //     const url = `https://www.food2fork.com/api/get?key=${apiKey}&rId=${id}`;
-    //     try {
-    //         const data = await fetch(url);
-    //         const jsonData = await data.json();
-    //         this.setState({ recipe: jsonData.recipe });
-    //         console.log(this.state.recipe)
-    //     } catch(error) {
-    //         console.log(error);
-    //     }
-    // }
+    async componentDidMount() {
+        const id = this.props.id;
+        const url = `https://www.food2fork.com/api/get?key=${apiKey}&rId=${id}`;
+        try {
+            const data = await fetch(url);
+            const jsonData = await data.json();
+            this.setState({ recipe: jsonData.recipe });
+            console.log(this.state.recipe)
+        } catch(error) {
+            console.log(error);
+        }
+    }
 
     render() {
         const { image_url, publisher, publisher_url, source_url, title, ingredients } = this.state.recipe;
