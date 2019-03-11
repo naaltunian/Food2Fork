@@ -3,43 +3,23 @@ import { recipe } from "../tempDetails";
 import apiKey from '../config';
 
 export default class RecipeDetails extends Component {
-    
-    // state = {
-    //     recipe: {},
-    //     url: `https://www.food2fork.com/api/search?key=${apiKey}&Id=${this.props.id}`
-    // }
-
-    // getRecipe = async () => {
-    //     try {
-    //       const data = await fetch(this.state.url);
-    //       const jsonData = await data.json();
-    //       this.setState({ recipe: jsonData.recipe });
-    //     } catch(error) {
-    //       console.log(error);
-    //     }
-    //   }
-    
-    //   componentDidMount() {
-    //     this.getRecipe();
-    //     // this.setState({ recipes: recipes })
-    //   }
 
     state = {
         recipe: {}
     }
 
-    async componentDidMount() {
-        const id = this.props.id;
-        const url = `https://www.food2fork.com/api/get?key=${apiKey}&rId=${id}`;
-        try {
-            const data = await fetch(url);
-            const jsonData = await data.json();
-            this.setState({ recipe: jsonData.recipe });
-            console.log(this.state.recipe)
-        } catch(error) {
-            console.log(error);
-        }
-    }
+    // async componentDidMount() {
+    //     const id = this.props.id;
+    //     const url = `https://www.food2fork.com/api/get?key=${apiKey}&rId=${id}`;
+    //     try {
+    //         const data = await fetch(url);
+    //         const jsonData = await data.json();
+    //         this.setState({ recipe: jsonData.recipe });
+    //         console.log(this.state.recipe)
+    //     } catch(error) {
+    //         console.log(error);
+    //     }
+    // }
 
     render() {
         const { image_url, publisher, publisher_url, source_url, title, ingredients } = this.state.recipe;

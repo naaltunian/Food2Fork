@@ -11,7 +11,8 @@ class App extends Component {
     recipes: [],
     url: `https://www.food2fork.com/api/search?key=${apiKey}`,
     details_id: 35382,
-    pageIndex: 1
+    pageIndex: 1,
+    search: ""
   }
 
   getRecipes = async () => {
@@ -48,6 +49,10 @@ class App extends Component {
       pageIndex: index,
       details_id: id
     });
+  }
+
+  handleChange = e => {
+    console.log(e);
   }
 
   render() {
