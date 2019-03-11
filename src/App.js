@@ -25,7 +25,7 @@ class App extends Component {
       if(jsonData.recipes.length === 0) {
         this.setState({ error: "No recipes found" })
       } else {
-        this.setState({ recipes: jsonData.recipes });
+        this.setState({ recipes: jsonData.recipes, error: "" });
       }
     } catch(error) {
       console.log(error);
